@@ -73,7 +73,16 @@ class CRISPSpectro(NDCube):
         ----------
         axes : astropy.visualization.wcsaxes.core.WCSAxes, optional
             The axes to plot onto. Default is None i.e. use axes defined by this object. This kwarg is typically useful for plotting multiple plots on one axes.
-        plot_axis_indices : 
+        plot_axis_indices : int or list, optional
+            The dimensions of the cube to plot. If a list of two dimensions are given there will be an image plot with any other dimensions being used as sliders. If an int is given then that dimension will be plotted on the x-axis with the other dimensions being sliders. Default is None which implicitly passed the list [-2,-1] which are typically the x- and y-axes respectively. In the 2D case the list is parsed such that the first entry is plotted on the x-axis and the second entry is plotted on the y-axis.
+        axes_coordinates : astropy.units.Quantity or list, optional
+            Denotes the physical coordinates for the plots and slider axes. If None then the physical coordinates are derived from the WCS with appropriate conversions calculated. If the length equals the number of sequence dimensions i.e. the number of points, then each element describes the coordinates of the corresponding sequence dimension e.g. for n pixels in 3D space the axes_coordinates would be [(x_1,y_1,z_1), ..., (x_n,y_n,z_n)]. If the length equals the length of `plot_axis_indices`, the 0th entry describes the coordinates of the x-axis etc.; the value of each entry should be either `astropy.units.Quantity` or `numpy.ndarray` of coordinates for each pixel.
+        axes_units : astropy.units.Unit or list, optional
+            The units to plot on the axes. This will implicitly do the conversions to any other unit from the ones derived from the WCS. If the data is 1D then this corresponds to the units of the x-axis. If the data is 2D then this corresponds to the units of the x- and y-axis. If None the units are derived from the WCS.
+        data_unit : astropy.unit.Unit, optional
+            The units to plot the data in. This will implicitly do the conversions to any other unit from the ones derived from the WCS. If the data is 1D then this corresponds to the units of the y-axis. If the data is 2D then this corresponds to intensity values. If None the units are derived from the WCS.
+        air : bool, optional
+            This is an option to plot the spectra using the air wavelengths. This is calculated using `specutils.utils.wcs_utils.vac_to_air` with the default (Griesen 2006) method. This assumes the WCS is in terms of vacuum wavelengths. Default is False.
         '''
 
         #TODO: Add set_ylabel and set_xlabel after plot for 1D to see if that fixes things.
