@@ -1,5 +1,5 @@
 .vscode/*
-/crisPy2/__pycache__/
+/crispy/__pycache__/
 /examples/
 /old_notebooks/
 /*.egg-info
@@ -11,3 +11,5 @@
 .DS_Store
 *.ipynb
 *.icloud
+docsrc/
+docs/
